@@ -1,0 +1,42 @@
+greenery:
+
+  outputs:
+    dbt_zkan:
+      type: postgres
+      threads: 1
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: "{{ env_var('DBT_ENV_SECRET_PG_PASSWORD') }}"
+      dbname: greenery
+      schema: dbt_zkan
+
+    prod:
+      type: postgres
+      threads: 1
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: "{{ env_var('DBT_ENV_SECRET_PG_PASSWORD') }}"
+      dbname: greenery
+      schema: prod
+
+    dbt_emz_bigquery:
+      type: bigquery
+      method: service-account
+      project: bigquery-240703
+      dataset: deb_kiattipong_dbt
+      threads: 1
+      keyfile: deb-bigquery.json
+      location: asia-southeast1
+
+    prod_bigquery:
+      type: bigquery
+      method: service-account
+      project: bigquery-240703
+      dataset: deb_kiattipong_prod
+      threads: 1
+      keyfile: deb-bigquery.json
+      location: asia-southeast1
+
+  target: dbt_emz_bigquery
